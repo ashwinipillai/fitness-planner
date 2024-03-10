@@ -15,7 +15,6 @@ Including another URLconf
 """
 
 from django.urls import path
-from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib import admin
@@ -50,4 +49,5 @@ urlpatterns = [
 
     path('api/workout_plan/', WeightTrackingListView.as_view(), name='exercise-list'),
     path('api/workout_plan/<int:pk>/', WeightTrackingDetailView.as_view(), name='exercise-detail'),
+    path('api/create_user/', UserListView.as_view(), name = "create_user")
 ]

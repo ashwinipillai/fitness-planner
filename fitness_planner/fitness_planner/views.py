@@ -1,7 +1,15 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+
 from .models import WorkoutPlanExercise, WorkoutPlan, Exercise, WeightTracking
 from .serializers import WorkoutPlanSerializer, ExerciseSerializer, \
-    WorkoutPlanExerciseSerializer, WeightTrackingSerializer
+    WorkoutPlanExerciseSerializer, WeightTrackingSerializer, UserSerializer
+
+
+class UserListView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 # Create your views here.
@@ -18,12 +26,12 @@ class WorkoutPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
 class ExerciseListView(generics.ListCreateAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ExerciseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
-
 
 
 class WorkoutPlanExerciseListView(generics.ListCreateAPIView):
