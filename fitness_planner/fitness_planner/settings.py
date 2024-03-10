@@ -5,10 +5,32 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'sixdf_*7jc)$e2)pl@6fpg#ak((oc#5#nplig6r*(tshwk%1jz'
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fitness_tracker',
+        'USER': 'ashwini',
+        'PASSWORD': "0410",
+        'HOST': 'localhost',
+        'PORT': 5432,
+        'OPTIONS': {'sslmode': 'disable'}
+    }
+}
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,8 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'workout'  # Add your app name here
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'user',  # Add your app name here,
+    'fitness_planner'
 ]
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
 ROOT_URLCONF = 'fitness_planner.urls'
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -34,8 +73,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
-        'OPTIONS' : {
-            'context_processors' : [
+        'OPTIONS': {
+            'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages'
