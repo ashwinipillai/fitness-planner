@@ -35,11 +35,13 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/login/', views.LoginAPIView.as_view(), name='login'),
+
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('api/exercise/', ExerciseListView.as_view(), name='exercise-list'),
     path('api/exercise/<int:pk>/', ExerciseDetailView.as_view(), name='exercise-detail'),
+    path('api/create_sample_exercises/', create_sample_exercises, name = "create_sample_exercises"),
 
     path('api/weight_tracking/', WorkoutPlanExerciseListView.as_view(), name='exercise-list'),
     path('api/weight_tracking/<int:pk>/', WorkoutPlanExerciseDetailView.as_view(), name='exercise-detail'),
