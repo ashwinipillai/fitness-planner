@@ -8,12 +8,13 @@ SECRET_KEY = 'sixdf_*7jc)$e2)pl@6fpg#ak((oc#5#nplig6r*(tshwk%1jz'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'fitness_tracker',
-        'USER': 'ashwini',
-        'PASSWORD': "0410",
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_planner'),
+        'USER': os.environ.get('POSTGRES_USERNAME','ashwini'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD','ENTER PASSWORD HERE'),
+        'HOST': os.environ.get('POSTGRES_REMOTE_HOST'),
+        'PORT': os.environ.get('POSTGRES_REMOTE_PORT','5432'),
         'OPTIONS': {'sslmode': 'disable'}
+
     }
 }
 DEBUG = True
