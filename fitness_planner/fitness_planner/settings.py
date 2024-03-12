@@ -9,18 +9,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_planner'),
-        'USER': os.environ.get('POSTGRES_USERNAME','ashwini'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD','ENTER PASSWORD HERE'),
-        'HOST': os.environ.get('POSTGRES_REMOTE_HOST'),
+        'USER': os.environ.get('POSTGRES_USERNAME','postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD','postgres'),
+        'HOST': os.environ.get('POSTGRES_REMOTE_HOST', 'db'),
         'PORT': os.environ.get('POSTGRES_REMOTE_PORT','5432'),
         'OPTIONS': {'sslmode': 'disable'}
 
     }
 }
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['*']
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'SECURITY_DEFINITIONS': {
@@ -53,6 +53,12 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+# Whitenoise to serve static files.
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Path were Django will look for static directory and CSS-Styling.
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')  # Path for django to look static at.
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
@@ -62,6 +68,7 @@ SIMPLE_JWT = {
 ROOT_URLCONF = 'fitness_planner.urls'
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware'
 ]
