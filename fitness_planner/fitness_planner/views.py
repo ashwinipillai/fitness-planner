@@ -18,11 +18,13 @@ class UserListView(generics.ListCreateAPIView):
 class WorkoutPlanListView(generics.ListCreateAPIView):
     queryset = WorkoutPlan.objects.all()
     serializer_class = WorkoutPlanSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WorkoutPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = WorkoutPlan.objects.all()
     serializer_class = WorkoutPlanSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ExerciseListView(generics.ListCreateAPIView):
@@ -34,36 +36,43 @@ class ExerciseListView(generics.ListCreateAPIView):
 class ExerciseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WorkoutPlanExerciseListView(generics.ListCreateAPIView):
     queryset = WorkoutPlanExercise.objects.all()
     serializer_class = WorkoutPlanExerciseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WorkoutPlanExerciseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = WorkoutPlan.objects.all()
     serializer_class = WorkoutPlanExerciseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WeightTrackingListView(generics.ListCreateAPIView):
     queryset = WeightTracking.objects.all()
     serializer_class = WeightTrackingSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WeightTrackingDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = WeightTracking.objects.all()
     serializer_class = WeightTrackingSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class FitnessGoalListView(generics.ListCreateAPIView):
     queryset = FitnessGoal.objects.all()
     serializer_class = FitnessGoalSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class FitnessGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FitnessGoal.objects.all()
     serializer_class = FitnessGoalSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class UserDetailAPIView(APIView):

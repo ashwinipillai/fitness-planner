@@ -18,6 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set environment variables
 ENV POSTGRES_REMOTE_PORT=5432 \
     POSTGRES_REMOTE_HOST=db \
+    POSTGRES_USERNAME=postgres \
+    POSTGRES_PASSWORD=postgres \
     RELEASE_VERSION=${VERSION} \
     OPENSSL_CONF=/home/integration-proxy/openssl.cnf
 

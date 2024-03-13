@@ -51,4 +51,5 @@ urlpatterns = [
     path('api/user_fitness_details/<int:pk>/', UserDetailAPIView.as_view(), name='user_fitness'),
 
     path('api/create_user/', UserListView.as_view(), name="create-user")
+
 ]
