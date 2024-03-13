@@ -8,30 +8,18 @@ SECRET_KEY = 'sixdf_*7jc)$e2)pl@6fpg#ak((oc#5#nplig6r*(tshwk%1jz'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_planner'),
-        'USER': os.environ.get('POSTGRES_USERNAME','postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD','postgres'),
-        'HOST': os.environ.get('POSTGRES_REMOTE_HOST', 'db'),
-        'PORT': os.environ.get('POSTGRES_REMOTE_PORT','5432'),
+        'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_tracker'),
+        'USER': os.environ.get('POSTGRES_USERNAME', 'ashwini'),  # Local Postgres username here
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '0410'),  # Local Postgres password here
+        'HOST': os.environ.get('POSTGRES_REMOTE_HOST', 'localhost'),
+        'PORT': os.environ.get('POSTGRES_REMOTE_PORT', '5432'),
         'OPTIONS': {'sslmode': 'disable'}
 
     }
 }
 DEBUG = False
 
-
 ALLOWED_HOSTS = ['*']
-SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header'
-        }
-    }
-
-}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'drf_yasg',
+    'drf_spectacular_sidecar',
+    'drf_spectacular',
     'rest_framework_simplejwt',
     'user',  # Add your app name here,
     'fitness_planner'
@@ -51,10 +40,31 @@ from datetime import timedelta
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # Other authentication classes if needed
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # Whitenoise to serve static files.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SPECTACULAR_SETTINGS = {
+
+    "TITLE": "Fitness Tracker",
+    "VERSION": 'v1',
+    "DESCRIPTION": "APIs to enable fitness tracking and enable workour plan creation",
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'SECURITY': [
+        {
+            'Bearer': []
+        }
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 # Path were Django will look for static directory and CSS-Styling.
 STATIC_URL = '/static/'

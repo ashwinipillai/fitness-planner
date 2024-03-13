@@ -90,10 +90,6 @@ pip install -r requirements.txt
 
 In case of M1 Mac, [install postgres using homebrew](https://formulae.brew.sh/formula/postgresql)
 
-If you're unable to install uwsgi on an M1 Mac using pyenv, please use the below command to install:
-```commandline
-LDFLAGS=-L/opt/homebrew/Cellar/gettext/0.21/lib pip install --no-cache-dir "uWSGI==2.0.20"
-```
 
 ### Step 5: Running the Django server
 
@@ -118,7 +114,12 @@ psql -U your_admin_username -d your_default_database -c "CREATE DATABASE fitness
 python manage.py migrate
 ```
 
-#### 5.4 Start the server
+#### 5.4.1 Apply prefilled data
+
+```bash
+python manage.py create_sample_data
+```
+#### 5.5 Start the server
 
 Fitness Tracker is a Django application.
 To run the django server,
@@ -132,3 +133,98 @@ python manage.py runserver 0.0.0.0:8007
 [pyenv]: https://realpython.com/intro-to-pyenv/
 [Mac]: https://gitlab.com/vernacularai/voice-services/integration-proxy/-/edit/master/README.md#mac
 [Postgres DB]: https://www.postgresql.org/download/
+
+
+
+
+Fitness API Testing: 
+===========
+
+## Authentication
+
+To access the API endpoints, you need to create a user and collect the access token provided. Use this access token as a Bearer token in the headers of all subsequent requests for authentication.
+
+### Create a User
+
+- Endpoint: `POST api/create_user/`
+- Body: JSON object containing user details (username, password)
+- Response: HTTP 200 for the user credentials
+
+### Create a User
+
+- Endpoint: `POST api/login/`
+- Body: JSON object containing user details ( username, password)
+  - ``{
+"username": "test",
+"password": "test"
+}``
+- Response: access_token and refresh_token.
+- Save this access_token for subsequent requests. 
+
+## Workouts and Exercises
+
+### Workout Management
+
+#### Create and Exercise:
+- Endpoint: `POST /exercise`
+- Body: JSON object containing workout plan details (e.g., name, description)
+- Response: JSON object containing the created workout plan
+
+#### Create a Workout Plan
+
+- Endpoint: `POST /workouts`
+- Body: JSON object containing workout plan details (e.g., name, description)
+- Response: JSON object containing the created workout plan
+
+#### Add an Exercise to a Workout Plan
+
+- Endpoint: `POST /workouts/{workout_id}/exercises`
+- Path Parameters:
+  - `workout_id`: ID of the workout plan to which the exercise will be added
+- Body: JSON object containing exercise details (e.g., name, sets, reps)
+- Response: JSON object containing the updated workout plan with the added exercise
+
+#### Add Multiple Exercises to a Workout Plan
+
+- Endpoint: `POST /workouts/{workout_id}/exercises/bulk`
+- Path Parameters:
+  - `workout_id`: ID of the workout plan to which the exercises will be added
+- Body: JSON array containing JSON objects of exercise details (e.g., name, sets, reps)
+- Response: JSON object containing the updated workout plan with the added exercises
+
+### Exercise Management
+
+#### Create an Exercise
+
+- Endpoint: `POST /exercises`
+- Body: JSON object containing exercise details (e.g., name, description, target muscles)
+- Response: JSON object containing the created exercise
+
+## Weight Logs and Fitness Goals
+
+### Weight Logs
+
+#### Add Weight Logs for Yourself
+
+- Endpoint: `POST /weightlogs`
+- Body: JSON object containing weight log details (e.g., date, weight)
+- Response: JSON object containing the added weight log entry
+
+### Fitness Goals
+
+#### Create a Fitness Goal for Yourself
+
+- Endpoint: `POST /fitnessgoals`
+- Body: JSON object containing fitness goal details (e.g., type, target, timeframe)
+- Response: JSON object containing the created fitness goal
+
+#### View Fitness Goal Progress
+
+- Endpoint: `GET /fitnessgoals/{goal_id}/progress`
+- Path Parameters:
+  - `goal_id`: ID of the fitness goal
+- Response: JSON object containing progress towards the fitness goal
+
+## Conclusion
+
+This concludes the Fitness API documentation. If you have any questions or need further assistance, please contact our support team. Happy exercising!
