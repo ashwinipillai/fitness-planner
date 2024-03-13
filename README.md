@@ -97,14 +97,14 @@ In case of M1 Mac, [install postgres using homebrew](https://formulae.brew.sh/fo
 
 Prior to running the server, please ensure that you have your postgres server up and running. 
 
-#### 5.2 Create Database fitness_tracker  [This needs to be done ONLY  if DB doesn't exist]
-Ensure there is a DB called "fitness_tracker" created in your local postgres server.
+#### 5.2 Create Database fitness_planner  [This needs to be done ONLY  if DB doesn't exist]
+Ensure there is a DB called "fitness_planner" created in your local postgres server.
 ```bash
 psql -U your_admin_username -d your_default_database -c "CREATE DATABASE fitness_planner WITH OWNER postgres IF NOT EXISTS;"
 ```
 
 #### 5.3 Set DB creds  [This needs to be done ONLY  if DB doesn't exist]
-* Go to fitness_tracker/settings.py
+* Go to fitness_planner/settings.py
 * Update the DATABASES json to your local credentials for postgres.
 
 

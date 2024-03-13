@@ -8,7 +8,7 @@ SECRET_KEY = 'sixdf_*7jc)$e2)pl@6fpg#ak((oc#5#nplig6r*(tshwk%1jz'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_tracker'),
+        'NAME': os.environ.get('POSTGRES_DATABASE', 'fitness_planner'),
         'USER': os.environ.get('POSTGRES_USERNAME', 'ashwini'),  # Local Postgres username here
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '0410'),  # Local Postgres password here
         'HOST': os.environ.get('POSTGRES_REMOTE_HOST', 'localhost'),

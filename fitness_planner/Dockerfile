@@ -9,7 +9,7 @@ FROM python:3.9-slim
 # Set the working directory inside the container
 WORKDIR /fitness_planner
 
-# Copy the current directory contents into the container at /fitness_tracker
+# Copy the current directory contents into the container at /fitness_planner
 COPY . /fitness_planner
 
 # Install any needed packages specified in requirements.txt
@@ -27,4 +27,4 @@ ENV POSTGRES_REMOTE_PORT=5432 \
 EXPOSE 8000
 
 # Run Django migrations and start the server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD sh -c "python manage.py migrate && python manage.py create_sample_dataset && python manage.py runserver 0.0.0.0:8000"
